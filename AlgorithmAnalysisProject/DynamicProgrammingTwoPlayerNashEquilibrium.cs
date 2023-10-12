@@ -8,9 +8,13 @@ namespace AlgorithmAnalysisProject
 {
     class DynamicProgrammingTwoPlayerNashEquilibrium
     {
-        // Payoffs represent the different strategies available to choose from for each player
-        private int[,] player1PayoffMatrix = { { 3, 0 }, { 5, 1 } };
-        private int[,] player2PayoffMatrix = { { 3, 5 }, { 0, 1 } };
+        int[,] player1PayoffMatrix, player2PayoffMatrix;
+
+        public DynamicProgrammingTwoPlayerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix)
+        {
+            this.player1PayoffMatrix = player1PayoffMatrix;
+            this.player2PayoffMatrix = player2PayoffMatrix;
+        }
 
         // Memoize previous calculated values to avoid redundant calculations
         private int?[,] memoizationTable;
@@ -44,7 +48,7 @@ namespace AlgorithmAnalysisProject
             var player2BestStrategy = true;
 
             // Check if a better strategy exists compared to the current strategy
-            for(int k = 0; k < 2; k++)
+            for(int k = 0; k < player1PayoffMatrix.GetLength(0); k++)
             {
                 if (player1PayoffMatrix[k,j] > player1PayoffMatrix[i,j])
                 {
@@ -54,7 +58,7 @@ namespace AlgorithmAnalysisProject
             }
 
             // Check if a better strategy exists compared to the current strategy
-            for (int l = 0; l < 2; l++)
+            for (int l = 0; l < player2PayoffMatrix.GetLength(0); l++)
             {
                 if (player2PayoffMatrix[i, l] > player2PayoffMatrix[i,j])
                 {
