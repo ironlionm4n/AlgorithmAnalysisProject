@@ -17,7 +17,7 @@ namespace AlgorithmAnalysisProject
             {
                 for(int j = 0; j < n; j++)
                 {
-                    payoffMatrix[i, j] = random.Next(0, 10);
+                    payoffMatrix[i, j] = random.Next(0, 20);
                 }
             }
 

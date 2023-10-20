@@ -10,22 +10,21 @@ namespace AlgorithmAnalysisProject
     {
         int[,] player1PayoffMatrix, player2PayoffMatrix;
 
+        // Memoize previous calculated values to avoid redundant calculations
+        private int?[,] memoizationTable;
+      
+        // Constructor
         public DynamicProgrammingTwoPlayerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix)
         {
             this.player1PayoffMatrix = player1PayoffMatrix;
             this.player2PayoffMatrix = player2PayoffMatrix;
+            int n = player1PayoffMatrix.GetLength(0);
+            memoizationTable = new int?[n, n];
         }
-
-        // Memoize previous calculated values to avoid redundant calculations
-        private int?[,] memoizationTable;
 
         // Initialize the memoization table and begin the recursive approach for finding NashEquilibrium
         public bool FindNashEquilibrium()
         {
-            int n = player1PayoffMatrix.GetLength(0);
-            int m = player2PayoffMatrix.GetLength(0);
-            memoizationTable = new int?[n, m];
-
             return CheckForNashEquilibrium(0, 0);
         }
 
@@ -44,31 +43,32 @@ namespace AlgorithmAnalysisProject
                 return memoizationTable[i, j] == 1;
             }
 
-            var player1BestStrategy = true;
-            var player2BestStrategy = true;
+            // Assume there exists a pure nash equilibrium
+            var player1HasBestStrategy = true;
+            var player2HasBestStrategy = true;
 
-            // Check if a better strategy exists compared to the current strategy
-            for(int k = 0; k < player1PayoffMatrix.GetLength(0); k++)
+            // Check if player 1 has a better payoff available compared to the current payoff
+            for (int k = 0; k < player1PayoffMatrix.GetLength(0); k++)
             {
                 if (player1PayoffMatrix[k,j] > player1PayoffMatrix[i,j])
                 {
-                    player1BestStrategy = false;
-                    break;
+                    player1HasBestStrategy = false;
                 }
             }
 
-            // Check if a better strategy exists compared to the current strategy
+            // Check if player 2 has a better payoff available compared to the current payoff
             for (int l = 0; l < player2PayoffMatrix.GetLength(0); l++)
             {
                 if (player2PayoffMatrix[i, l] > player2PayoffMatrix[i,j])
                 {
-                    player2BestStrategy = false;
-                    break;
+                    player2HasBestStrategy = false;
                 }
             }
 
             // If both players have a best strategy then there is a Nash Equilibrium
-            var foundNashEquilibrium = player1BestStrategy && player2BestStrategy;
+            var foundNashEquilibrium = player1HasBestStrategy && player2HasBestStrategy;
+
+            // Assign the value for this position in the memoization table to 0 if there is not a nashEquilibrium at this point or 1 if there is.
             memoizationTable[i, j] = !foundNashEquilibrium ? 0 : 1;
 
             // If a Nash Equilibrium is found then return true
