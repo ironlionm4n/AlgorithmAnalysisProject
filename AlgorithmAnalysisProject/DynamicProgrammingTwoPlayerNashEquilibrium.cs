@@ -38,9 +38,21 @@ namespace AlgorithmAnalysisProject
             }
 
             // Returns true if the value in the memoization table equals 1 as a Nash Equilibrium was found
+            // Returns false if this state was visited and not a Nash Equilibria
             if (memoizationTable[i,j].HasValue)
             {
-                return memoizationTable[i, j] == 1;
+                if( memoizationTable[i, j] == 1)
+                {
+                    Console.WriteLine($"Memoization Table Nash Equilibrium");
+                    Console.WriteLine($"Strategy Combination: Player 1 uses strategy {i} with payoff {player1PayoffMatrix[i, j]}, " +
+                        $"Player 2 uses strategy {j} with payoff {player2PayoffMatrix[i, j]}");
+                    return true;
+                } 
+                else
+                {
+                    // Return false here or the method is very slow on large input sizes
+                    return false;
+                }
             }
 
             // Assume there exists a pure nash equilibrium
@@ -53,15 +65,17 @@ namespace AlgorithmAnalysisProject
                 if (player1PayoffMatrix[k,j] > player1PayoffMatrix[i,j])
                 {
                     player1HasBestStrategy = false;
+                    break;
                 }
             }
 
             // Check if player 2 has a better payoff available compared to the current payoff
-            for (int l = 0; l < player2PayoffMatrix.GetLength(0); l++)
+            for (int k = 0; k < player2PayoffMatrix.GetLength(0); k++)
             {
-                if (player2PayoffMatrix[i, l] > player2PayoffMatrix[i,j])
+                if (player2PayoffMatrix[i, k] > player2PayoffMatrix[i,j])
                 {
                     player2HasBestStrategy = false;
+                    break;
                 }
             }
 
@@ -74,6 +88,9 @@ namespace AlgorithmAnalysisProject
             // If a Nash Equilibrium is found then return true
             if(foundNashEquilibrium)
             {
+                Console.WriteLine($"Dynamic Programming Nash Equilibrium Found");
+                Console.WriteLine($"Strategy Combination: Player 1 uses strategy {i} with payoff {player1PayoffMatrix[i, j]}, " +
+                        $"Player 2 uses strategy {j} with payoff {player2PayoffMatrix[i, j]}");
                 return true;
             }
 
