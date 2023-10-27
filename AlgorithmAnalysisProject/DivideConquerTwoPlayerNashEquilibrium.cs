@@ -11,12 +11,12 @@ namespace AlgorithmAnalysisProject
         public bool DivideConquerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int start, int end)
         {
             var n = player1PayoffMatrix.GetLength(0);
-            if(start == end)
+/*            if(start == end)
             {
                 Console.WriteLine("Divide And Conquer Nash Equilibrium Fround - end");
 
                 return IsNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, start, end, n);
-            }
+            }*/
 
             var mid = (end + start) / 2;
 

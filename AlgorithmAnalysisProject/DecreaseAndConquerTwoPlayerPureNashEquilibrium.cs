@@ -44,9 +44,6 @@ namespace AlgorithmAnalysisProject
                 // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
                 if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, midRow, startColumn, midColumn))
                 {
-                    Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround");
-                    Console.WriteLine($"Strategy Combination: Player 1 uses strategy {startRow} with payoff {player1PayoffMatrix[startRow, startColumn]}, " +
-                        $"Player 2 uses strategy {startColumn} with payoff {player2PayoffMatrix[startRow, startColumn]}");
                     return true;
                 }
             }
@@ -57,9 +54,6 @@ namespace AlgorithmAnalysisProject
                 // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
                 if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, midRow, midColumn + 1, endColumn))
                 {
-                    Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround");
-                    Console.WriteLine($"Strategy Combination: Player 1 uses strategy {startRow} with payoff {player1PayoffMatrix[startRow, startColumn]}, " +
-                        $"Player 2 uses strategy {startColumn} with payoff {player2PayoffMatrix[startRow, startColumn]}");
                     return true;
                 }
             }
@@ -70,9 +64,6 @@ namespace AlgorithmAnalysisProject
                 // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
                 if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, midRow + 1, endRow, startColumn, midColumn))
                 {
-                    Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround");
-                    Console.WriteLine($"Strategy Combination: Player 1 uses strategy {startRow} with payoff {player1PayoffMatrix[startRow, startColumn]}, " +
-                        $"Player 2 uses strategy {startColumn} with payoff {player2PayoffMatrix[startRow, startColumn]}");
                     return true;
                 }
             }
@@ -82,9 +73,6 @@ namespace AlgorithmAnalysisProject
             {
                 if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, midRow + 1, endRow, midColumn + 1, endColumn))
                 {
-                    Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround");
-                    Console.WriteLine($"Strategy Combination: Player 1 uses strategy {startRow} with payoff {player1PayoffMatrix[startRow, startColumn]}, " +
-                        $"Player 2 uses strategy {startColumn} with payoff {player2PayoffMatrix[startRow, startColumn]}");
                     return true;
                 }
             }
@@ -101,9 +89,9 @@ namespace AlgorithmAnalysisProject
         /// </summary>
         /// <param name="player1PayoffMatrix"></param>
         /// <param name="player2PayoffMatrix"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="n"></param>
+        /// <param name="i">player 1 current strategy</param>
+        /// <param name="j">player 2 current strategy</param>
+        /// <param name="n">payoff matrix length</param>
         /// <returns></returns>
         private bool IsNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int i, int j, int n)
         {
