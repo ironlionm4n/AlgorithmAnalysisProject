@@ -24,12 +24,6 @@ namespace AlgorithmAnalysisProject
             if(startRow == endRow && startColumn == endColumn)
             {
                 var foundNashEquilibrium = IsNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, startColumn, player1PayoffMatrix.GetLength(0));
-                if(foundNashEquilibrium )
-                {
-                    Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround");
-                    Console.WriteLine($"Strategy Combination: Player 1 uses strategy {startRow} with payoff {player1PayoffMatrix[startRow, startColumn]}, " +
-                        $"Player 2 uses strategy {startColumn} with payoff {player2PayoffMatrix[startRow, startColumn]}");
-                }
 
                 return foundNashEquilibrium;
             }
@@ -120,6 +114,13 @@ namespace AlgorithmAnalysisProject
             }
 
             // If both have a best strategy then there is a Nash Equilibrium
+            if (player1HasBestStrategy && player2HasBestStrategy)
+            {
+                Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround");
+                Console.WriteLine($"Strategy Combination: Player 1 uses strategy {i} with payoff {player1PayoffMatrix[i, j]}, " +
+                    $"Player 2 uses strategy {j} with payoff {player2PayoffMatrix[i, j]}");
+            }
+
             return player1HasBestStrategy && player2HasBestStrategy;
         }
     }

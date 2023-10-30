@@ -3,25 +3,26 @@ using System.Diagnostics;
 
 
 int[] inputSizes = { 10, 100, 1000, 5000, 10000, 25000 };
+//int[] inputSizes = { 50000 };
 List<double> bruteForceRunTimes = new();
 List<double> dynamicRunTimes = new();
 List<double> decreaseConquerRunTimes = new();
 List<double> divideRunTimes = new();
 GeneratePayoffMatrix generatePayoffMatrix = new GeneratePayoffMatrix();
-bool showLogs = false;
-int maxRuns = 1;
+bool showLogs = true;
+int maxRuns = 5;
 
 
 foreach (var input in inputSizes)
 {
 
-    /*RunBruteForceWithLogging(input);
+    RunBruteForceWithLogging(input);
     RunDecreaseConquerWithLogging(input);
-    RunDivideConquerWithLogging(input);*/
+    RunDivideConquerWithLogging(input);
 
-    RunBruteForce(input);
+/*    RunBruteForce(input);
     RunDecreaseConquer(input);
-    RunDivideConquer(input);
+    RunDivideConquer(input);*/
 }
 
 void RunBruteForce(int inputSize)
