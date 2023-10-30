@@ -20,10 +20,12 @@ namespace AlgorithmAnalysisProject
         /// <returns></returns>
         public bool DecreaseAndConquerTwoPlayerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int startRow, int endRow, int startColumn, int endColumn)
         {
-            // Base case for when there is just a single cell left to check
+            // Base case to check if that given cell corresponds to a Nash Equilibrium
             if(startRow == endRow && startColumn == endColumn)
             {
-                return IsNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, startColumn, player1PayoffMatrix.GetLength(0));
+                var foundNashEquilibrium = IsNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, startColumn, player1PayoffMatrix.GetLength(0));
+
+                return foundNashEquilibrium;
             }
 
             // Calculating middle cell index for row and column
@@ -33,6 +35,7 @@ namespace AlgorithmAnalysisProject
             // Checks the top left section of the matrices
             if (startRow < midRow || startColumn < midColumn)
             {
+                // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
                 if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, midRow, startColumn, midColumn))
                 {
                     return true;
@@ -42,6 +45,7 @@ namespace AlgorithmAnalysisProject
             // Checks the top right of the matrices
             if (startRow < midRow || midColumn < endColumn)
             {
+                // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
                 if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, midRow, midColumn + 1, endColumn))
                 {
                     return true;
@@ -51,6 +55,7 @@ namespace AlgorithmAnalysisProject
             // Checks the bottom left of the matrices
             if (midRow < endRow || startColumn < midColumn)
             {
+                // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
                 if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, midRow + 1, endRow, startColumn, midColumn))
                 {
                     return true;
@@ -72,12 +77,15 @@ namespace AlgorithmAnalysisProject
 
         /// <summary>
         /// Checks if there is a pure Nash Equilibrium for the given position of the payoff matrices
+        /// For a Nash Equilibrium to be true then Player 1 cannot improve by switching to a different strategy in row i,
+        /// Player 2 cannot improve by switching to a different strategy in column j
+        /// Still have to check each cell in payoff matrices for a better strategy in the row i for Player 1 and column j for Player 2
         /// </summary>
         /// <param name="player1PayoffMatrix"></param>
         /// <param name="player2PayoffMatrix"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="n"></param>
+        /// <param name="i">player 1 current strategy</param>
+        /// <param name="j">player 2 current strategy</param>
+        /// <param name="n">payoff matrix length</param>
         /// <returns></returns>
         private bool IsNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int i, int j, int n)
         {
@@ -91,6 +99,7 @@ namespace AlgorithmAnalysisProject
                 if (player1PayoffMatrix[k, j] > player1PayoffMatrix[i, j])
                 {
                     player1HasBestStrategy = false;
+                    break;
                 }
             }
 
@@ -100,10 +109,18 @@ namespace AlgorithmAnalysisProject
                 if (player2PayoffMatrix[i, k] > player2PayoffMatrix[i, j])
                 {
                     player2HasBestStrategy = false;
+                    break;
                 }
             }
 
             // If both have a best strategy then there is a Nash Equilibrium
+            if (player1HasBestStrategy && player2HasBestStrategy)
+            {
+                Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround");
+                Console.WriteLine($"Strategy Combination: Player 1 uses strategy {i} with payoff {player1PayoffMatrix[i, j]}, " +
+                    $"Player 2 uses strategy {j} with payoff {player2PayoffMatrix[i, j]}");
+            }
+
             return player1HasBestStrategy && player2HasBestStrategy;
         }
     }
