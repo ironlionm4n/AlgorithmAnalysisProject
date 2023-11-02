@@ -5,7 +5,6 @@ using System.Diagnostics;
 int[] inputSizes = { 10, 100, 1000, 5000, 10000, /*25000*/ };
 //int[] inputSizes = { 50000 };
 List<double> bruteForceRunTimes = new();
-List<double> dynamicRunTimes = new();
 List<double> decreaseConquerRunTimes = new();
 List<double> divideRunTimes = new();
 GeneratePayoffMatrix generatePayoffMatrix = new GeneratePayoffMatrix();
@@ -46,9 +45,10 @@ void RunBruteForceWithLogging(int inputSize)
                 nashEquilibriumsFound++;
             }
             stopWatch.Stop();
-            var elapsedMilliseconds = (double)stopWatch.ElapsedTicks / Stopwatch.Frequency * 1000;
+            // Each tick in the ElapsedTicks value represents the time interval equal to 1 second divided by the Frequency
+            var elapsedMilliseconds = (double)stopWatch.ElapsedTicks / Stopwatch.Frequency * 1000; 
             bruteForceRunTimes.Add(elapsedMilliseconds);
-            streamWriter.Write($"{Math.Round(elapsedMilliseconds, 3)},"); // need to round
+            streamWriter.Write($"{Math.Round(elapsedMilliseconds, 3)},");
             stopWatch.Reset();
         }
 
@@ -88,8 +88,6 @@ void RunDecreaseConquerWithLogging(int inputSize)
 
 void RunDivideConquerWithLogging(int inputSize)
 {
-    // Divide Conquer Programming Approach
-
     int nashEquilibriumsFound = 0;
     using (StreamWriter streamWriter = new("Divide.txt", true))
     {
