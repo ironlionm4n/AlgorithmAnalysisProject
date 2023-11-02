@@ -8,16 +8,21 @@ namespace AlgorithmAnalysisProject
 {
     internal class DivideConquerTwoPlayerNashEquilibrium
     {
+        // Divide the whole matrix into halves, search the halves for a Nash Equilibrium instead of searching the entire matrix
         public bool DivideConquerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int start, int end)
         {
+            // Input size
             var n = player1PayoffMatrix.GetLength(0);
 
+            // Middle index
             var mid = (end + start) / 2;
 
+            // Search through first half of the matrix
             for(int i = start; i <= mid; i++)
             {
                 for(int j = 0; j < player1PayoffMatrix.GetLength(0); j++)
                 {
+                    // Check if this current strategy combination is a Nash Equilibrium
                     if(IsNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, i, j, n))
                     {
                         Console.WriteLine("Divide And Conquer Nash Equilibrium Fround - First Half");
@@ -26,11 +31,12 @@ namespace AlgorithmAnalysisProject
                 }
             }
 
-
+            // Search through second half of the matrix
             for (int i = mid + 1; i <= end; i++)
             {
                 for (int j = 0; j < player1PayoffMatrix.GetLength(0); j++)
                 {
+                    // Check if this current strategy combination is a Nash Equilibrium
                     if (IsNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, i, j, n))
                     {
                         Console.WriteLine("Divide And Conquer Nash Equilibrium Fround - Second Half");
