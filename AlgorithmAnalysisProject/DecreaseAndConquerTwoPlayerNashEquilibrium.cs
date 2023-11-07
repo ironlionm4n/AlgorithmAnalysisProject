@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AlgorithmAnalysisProject
 {
-    internal class DivideConquerTwoPlayerNashEquilibrium
+    internal class DecreaseAndConquerTwoPlayerNashEquilibrium
     {
         // Divide the whole matrix into halves, search the halves for a Nash Equilibrium instead of searching the entire matrix
-        public bool DivideConquerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int start, int end)
+        public bool DecreaseConquerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int start, int end)
         {
             // Input size
             var n = player1PayoffMatrix.GetLength(0);
@@ -25,7 +25,7 @@ namespace AlgorithmAnalysisProject
                     // Check if this current strategy combination is a Nash Equilibrium
                     if(IsNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, i, j, n))
                     {
-                        Console.WriteLine("Divide And Conquer Nash Equilibrium Fround - First Half");
+                        Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround - First Half");
                         return true;
                     }
                 }
@@ -39,7 +39,7 @@ namespace AlgorithmAnalysisProject
                     // Check if this current strategy combination is a Nash Equilibrium
                     if (IsNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, i, j, n))
                     {
-                        Console.WriteLine("Divide And Conquer Nash Equilibrium Fround - Second Half");
+                        Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround - Second Half");
                         return true;
                     }
                 }

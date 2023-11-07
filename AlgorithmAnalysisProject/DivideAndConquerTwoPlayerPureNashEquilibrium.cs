@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlgorithmAnalysisProject
 {
-    class DecreaseAndConquerTwoPlayerPureNashEquilibrium
+    class DivideAndConquerTwoPlayerPureNashEquilibrium
     {
         /// <summary>
         /// Recursively checks for pure Nash Equilibrium by dividing the payoff matrices in sections and checking those sections individually
@@ -18,7 +18,7 @@ namespace AlgorithmAnalysisProject
         /// <param name="startColumn">Starting column index</param>
         /// <param name="endColumn">Ending column index</param>
         /// <returns></returns>
-        public bool DecreaseAndConquerTwoPlayerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int startRow, int endRow, int startColumn, int endColumn)
+        public bool DivideAndConquerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int startRow, int endRow, int startColumn, int endColumn)
         {
             // Base case to check if that given cell corresponds to a Nash Equilibrium
             if(startRow == endRow && startColumn == endColumn)
@@ -36,7 +36,7 @@ namespace AlgorithmAnalysisProject
             if (startRow < midRow || startColumn < midColumn)
             {
                 // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
-                if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, midRow, startColumn, midColumn))
+                if (DivideAndConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, midRow, startColumn, midColumn))
                 {
                     return true;
                 }
@@ -46,7 +46,7 @@ namespace AlgorithmAnalysisProject
             if (startRow < midRow || midColumn < endColumn)
             {
                 // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
-                if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, midRow, midColumn + 1, endColumn))
+                if (DivideAndConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, startRow, midRow, midColumn + 1, endColumn))
                 {
                     return true;
                 }
@@ -56,7 +56,7 @@ namespace AlgorithmAnalysisProject
             if (midRow < endRow || startColumn < midColumn)
             {
                 // Immediately return true from the function if a Nash Equilibrium was found in this section of the payoff matrices
-                if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, midRow + 1, endRow, startColumn, midColumn))
+                if (DivideAndConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, midRow + 1, endRow, startColumn, midColumn))
                 {
                     return true;
                 }
@@ -65,7 +65,7 @@ namespace AlgorithmAnalysisProject
             // Checks the bottom right of the matrices
             if (midRow < endRow || midColumn < endColumn)
             {
-                if (DecreaseAndConquerTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, midRow + 1, endRow, midColumn + 1, endColumn))
+                if (DivideAndConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, midRow + 1, endRow, midColumn + 1, endColumn))
                 {
                     return true;
                 }
@@ -116,7 +116,7 @@ namespace AlgorithmAnalysisProject
             // If both have a best strategy then there is a Nash Equilibrium
             if (player1HasBestStrategy && player2HasBestStrategy)
             {
-                Console.WriteLine("Decrease And Conquer Nash Equilibrium Fround");
+                Console.WriteLine("Divide And Conquer Nash Equilibrium Fround");
                 Console.WriteLine($"Strategy Combination: Player 1 uses strategy {i} with payoff {player1PayoffMatrix[i, j]}, " +
                     $"Player 2 uses strategy {j} with payoff {player2PayoffMatrix[i, j]}");
             }

@@ -8,7 +8,7 @@ namespace AlgorithmAnalysisProject
 {
     class GeneratePayoffMatrix
     {
-        public static readonly Random random = new Random();
+        public static readonly Random random = new();
         public int[,] GenerateRandomPayoffMatrices(int n)
         {
     
