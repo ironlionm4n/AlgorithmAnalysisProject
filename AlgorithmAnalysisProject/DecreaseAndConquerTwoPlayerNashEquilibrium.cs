@@ -8,7 +8,14 @@ namespace AlgorithmAnalysisProject
 {
     internal class DecreaseAndConquerTwoPlayerNashEquilibrium
     {
-        // Divide the whole matrix into halves, search the halves for a Nash Equilibrium instead of searching the entire matrix
+        /// <summary>
+        /// Decrease the search space in half and search the halves one at a time for a nash equilibrium
+        /// </summary>
+        /// <param name="player1PayoffMatrix">Player1's Strategy Rewards</param>
+        /// <param name="player2PayoffMatrix">Player2's Strategy Rewards</param>
+        /// <param name="start">Starting index: 0</param>
+        /// <param name="end">Ending index: size of input - 1</param>
+        /// <returns></returns>
         public bool DecreaseConquerNashEquilibrium(int[,] player1PayoffMatrix, int[,] player2PayoffMatrix, int start, int end)
         {
             // Input size

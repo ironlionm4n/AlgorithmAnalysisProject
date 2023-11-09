@@ -1,7 +1,7 @@
 ﻿using AlgorithmAnalysisProject;
 using System.Diagnostics;
 
-
+#region Variables
 int[] inputSizes = { 10, 100, 1000, 5000, 10000, /*25000*/ };
 //int[] inputSizes = { 50000 };
 List<double> bruteForceRunTimes = new();
@@ -10,7 +10,7 @@ List<double> divideRunTimes = new();
 GeneratePayoffMatrix generatePayoffMatrix = new();
 bool showLogs = false;
 int maxRuns = 5;
-
+#endregion
 
 foreach (var input in inputSizes)
 {
@@ -26,7 +26,6 @@ foreach (var input in inputSizes)
     RunDecreaseConquer(input);
     #endregion
 }
-
 
 #region FileIO
 void RunBruteForceWithLogging(int inputSize)
@@ -62,7 +61,7 @@ void RunBruteForceWithLogging(int inputSize)
 void RunDivideConquerWithLogging(int inputSize)
 {
     int nashEquilibriumsFound = 0;
-    DivideAndConquerTwoPlayerPureNashEquilibrium decreaseAndConquerTwoPlayerPureNashEquilibrium = new();
+    DivideAndConquerTwoPlayerPureNashEquilibrium divideAndConquer = new();
     using (StreamWriter streamWriter = new("Decrease.txt", true))
     {
         Stopwatch stopWatch = new();
@@ -73,7 +72,7 @@ void RunDivideConquerWithLogging(int inputSize)
             var player2PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
 
             stopWatch.Start();
-            if (decreaseAndConquerTwoPlayerPureNashEquilibrium.DivideAndConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, 0, inputSize - 1, 0, inputSize - 1))
+            if (divideAndConquer.DivideAndConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, 0, inputSize - 1, 0, inputSize - 1))
             {
                 nashEquilibriumsFound++;
             }
@@ -99,9 +98,9 @@ void RunDecreaseConquerWithLogging(int inputSize)
         {
             var player1PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
             var player2PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
-            DecreaseAndConquerTwoPlayerNashEquilibrium divideConquerTwoPlayerNashEquilibrium = new();
+            DecreaseAndConquerTwoPlayerNashEquilibrium decreaseConquer = new();
             stopWatch.Start();
-            if (divideConquerTwoPlayerNashEquilibrium.DecreaseConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, 0, inputSize - 1))
+            if (decreaseConquer.DecreaseConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, 0, inputSize - 1))
             {
                 nashEquilibriumsFound++;
             }
@@ -121,25 +120,25 @@ void RunDecreaseConquerWithLogging(int inputSize)
 
 void RunBruteForce(int inputSize)
 {
-    BruteForceTwoPlayerPureNashEquilibrium pureNashEquilibrium = new();
+    BruteForceTwoPlayerPureNashEquilibrium bruteForce = new();
     Console.WriteLine($"Input Size: {inputSize}");
     for (int i = 0; i < maxRuns; i++)
     {
         var player1PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
         var player2PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
-        pureNashEquilibrium.BruteForceTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, inputSize);
+        bruteForce.BruteForceTwoPlayerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, inputSize);
     }
 }
 
 void RunDivideConquer(int inputSize)
 {
-    DivideAndConquerTwoPlayerPureNashEquilibrium decreaseAndConquerTwoPlayerPureNashEquilibrium = new();
+    DivideAndConquerTwoPlayerPureNashEquilibrium divideConquer = new();
     Console.WriteLine($"Input Size: {inputSize}");
     for (int i = 0; i < maxRuns; i++)
     {
         var player1PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
         var player2PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
-        decreaseAndConquerTwoPlayerPureNashEquilibrium.DivideAndConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, 0, inputSize - 1, 0, inputSize - 1);
+        divideConquer.DivideAndConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, 0, inputSize - 1, 0, inputSize - 1);
     }
 }
 
@@ -150,13 +149,12 @@ void RunDecreaseConquer(int inputSize)
     {
         var player1PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
         var player2PayoffMatrix = generatePayoffMatrix.GenerateRandomPayoffMatrices(inputSize);
-        DecreaseAndConquerTwoPlayerNashEquilibrium divideConquerTwoPlayerNashEquilibrium = new();
-        divideConquerTwoPlayerNashEquilibrium.DecreaseConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, 0, inputSize - 1);
+        DecreaseAndConquerTwoPlayerNashEquilibrium decreaseConquer = new();
+        decreaseConquer.DecreaseConquerNashEquilibrium(player1PayoffMatrix, player2PayoffMatrix, 0, inputSize - 1);
     }
 }
 
 #endregion
-
 
 if (showLogs)
 {
